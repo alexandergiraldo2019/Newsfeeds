@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[Feed]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)

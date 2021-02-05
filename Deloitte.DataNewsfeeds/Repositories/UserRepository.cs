@@ -22,7 +22,7 @@ namespace Deloitte.DataNewsfeeds.Repositories
         {
             using (var command = _context.CreateCommand())
             {
-                command.CommandText = "exec [dbo].[uspGetUsers]";
+                command.CommandText = "exec [dbo].[GetUsers]";
 
                 return this.ToList(command).ToList();
             }
@@ -33,7 +33,7 @@ namespace Deloitte.DataNewsfeeds.Repositories
             using (var command = _context.CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "uspSignUp";
+                command.CommandText = "SignUp";
 
                 command.Parameters.Add(command.CreateParameter("@pFirstName", user.FirstName));
                 command.Parameters.Add(command.CreateParameter("@pLastName", user.LastName));
@@ -54,7 +54,7 @@ namespace Deloitte.DataNewsfeeds.Repositories
             using (var command = _context.CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "uspSignIn";
+                command.CommandText = "SignIn";
 
                 command.Parameters.Add(command.CreateParameter("@pId", id));
                 command.Parameters.Add(command.CreateParameter("@pPassword", password));
@@ -69,7 +69,7 @@ namespace Deloitte.DataNewsfeeds.Repositories
             using (var command = _context.CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "uspGetUserByUsernameOrEmail";
+                command.CommandText = "GetUserByUsernameOrEmail";
 
                 command.Parameters.Add(command.CreateParameter("@pUsername", username));
                 command.Parameters.Add(command.CreateParameter("@pEmail", email));

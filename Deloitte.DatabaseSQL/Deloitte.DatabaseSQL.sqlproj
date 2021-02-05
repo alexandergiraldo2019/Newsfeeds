@@ -61,4 +61,14 @@
     <Folder Include="Scripts" />
     <Folder Include="Views" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Procedures\GetUsers.sql" />
+    <Build Include="Procedures\SignUp.sql" />
+    <Build Include="Procedures\SignIn.sql" />
+    <Build Include="Procedures\GetUserByUsernameOrEmail.sql" />
+    <Build Include="Tables\User.sql" />
+    <Build Include="Tables\Feed.sql" />
+    <Build Include="Tables\Option.sql" />
+    <Build Include="Tables\UserFeed.sql" />
+  </ItemGroup>
 </Project>
