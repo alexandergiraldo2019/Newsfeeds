@@ -35,11 +35,11 @@ namespace Deloitte.DataNewsfeeds.Repositories
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "SignUp";
 
-                command.Parameters.Add(command.CreateParameter("@pFirstName", user.FirstName));
-                command.Parameters.Add(command.CreateParameter("@pLastName", user.LastName));
+                //command.Parameters.Add(command.CreateParameter("@pFirstName", user.FirstName));
+                //command.Parameters.Add(command.CreateParameter("@pLastName", user.LastName));
                 command.Parameters.Add(command.CreateParameter("@pUserName", user.UserName));
                 command.Parameters.Add(command.CreateParameter("@pPassword", user.Password));
-                command.Parameters.Add(command.CreateParameter("@pEmail", user.Email));
+                //command.Parameters.Add(command.CreateParameter("@pEmail", user.Email));
 
                 return this.ToList(command).FirstOrDefault();
 
@@ -54,10 +54,10 @@ namespace Deloitte.DataNewsfeeds.Repositories
             using (var command = _context.CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "SignIn";
+                command.CommandText = "stpUsersValidation";
 
-                command.Parameters.Add(command.CreateParameter("@pId", id));
-                command.Parameters.Add(command.CreateParameter("@pPassword", password));
+                command.Parameters.Add(command.CreateParameter("@Login", id));
+                command.Parameters.Add(command.CreateParameter("@Password", password));
 
                 return this.ToList(command).FirstOrDefault();
             }

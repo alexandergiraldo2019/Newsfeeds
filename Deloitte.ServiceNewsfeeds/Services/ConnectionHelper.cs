@@ -9,7 +9,7 @@ namespace Deloitte.ServiceNewsfeeds.Services
     {
         public static IConnectionFactory GetConnection()
         {
-            return new DbConnectionFactory("MyConString");
+            return new DbConnectionFactory("DataContext");
         }
     }
 }

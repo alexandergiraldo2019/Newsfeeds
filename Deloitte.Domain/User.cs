@@ -8,26 +8,19 @@ namespace Deloitte.Domain
     {
         public int UserID { get; set; }
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
         public string UserName { get; set; }
+
+        public string Login { get; set; }
 
         public string Password { get; set; }
 
-        public bool IsActive { get; set; }
+        //public class UserResponse
+        //{
+        //    public string Code { get; set; }
 
-        public bool IsDeleted { get; set; }
+        //    public string ValidationMessage { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
-        public int CreatedBy { get; set; }
-
-        public DateTime UpdatedAt { get; set; }
-
-        public int UpdatedBy { get; set; }
-
-        public string Email { get; set; }
+        //    public List<Deloitte.Domain.Feed> FeedsList { get; set; }
+        //}
     }
 }
