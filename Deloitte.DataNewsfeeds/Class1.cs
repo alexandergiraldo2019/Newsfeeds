@@ -4,5 +4,8 @@ namespace Deloitte.DataNewsfeeds
 {
     public class Class1
     {
+
+
+
     }
 }
