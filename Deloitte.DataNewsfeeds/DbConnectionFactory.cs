@@ -4,6 +4,8 @@ using System.Text;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
+using Microsoft.Extensions.Configuration;
+using System.Data.SqlClient;
 
 namespace Deloitte.DataNewsfeeds
 {
@@ -14,17 +16,30 @@ namespace Deloitte.DataNewsfeeds
         private readonly string _connectionString;
         private readonly string _name;
 
-        public DbConnectionFactory(string connectionName)
+        public DbConnectionFactory(string connectionName, string providername, IConfiguration dataConfiguration)
         {
             if (connectionName == null) throw new ArgumentNullException("connectionName");
 
-            var conStr = ConfigurationManager.ConnectionStrings[connectionName];
+            if (providername == null) throw new ArgumentNullException("providername");
+
+            string StrConection = dataConfiguration.GetConnectionString(connectionName);
+            string ProvConection = dataConfiguration.GetConnectionString(providername);
+
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(StrConection);
+
+            //var conStr = ConfigurationManager.ConnectionStrings[connectionName];
+            var conStr = builder;
 
             if (conStr == null)
                 throw new ConfigurationErrorsException(string.Format("Failed to find connection string named '{0}' in app/web.config.", connectionName));
 
-            _name = conStr.ProviderName;
-            _provider = DbProviderFactories.GetFactory(conStr.ProviderName);
+            //_name = conStr.ProviderName;
+            _name = providername;
+            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            //for Connection
+            //_provider = DbProviderFactories.GetFactory("System.Data.SqlClient");
+            //_provider = DbProviderFactories.GetFactory(conStr.ProviderName);
+            _provider = DbProviderFactories.GetFactory(providername);
             _connectionString = conStr.ConnectionString;
 
         }

@@ -2,19 +2,27 @@
 using Deloitte.DataNewsfeeds.Repositories;
 using Deloitte.Domain;
 using Deloitte.ServiceNewsfeeds.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace Deloitte.ServiceNewsfeeds.Services
 {
     public class UserService : IUserService
     {
         private IConnectionFactory connectionFactory;
+        private IConfiguration _DataConfiguration;
+
+        public UserService(IConfiguration dataConfiguration)
+        {
+            _DataConfiguration = dataConfiguration;
+        }
 
         public IList<User> GetUsers()
         {
-            connectionFactory = ConnectionHelper.GetConnection();
+            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
 
             var context = new DbContext(connectionFactory);
 
@@ -25,7 +33,7 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
         public User RegisterUser(User user)
         {
-            connectionFactory = ConnectionHelper.GetConnection();
+            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
 
             var context = new DbContext(connectionFactory);
 
@@ -37,7 +45,7 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
         public User Login(string id, string password)
         {
-            connectionFactory = ConnectionHelper.GetConnection();
+            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
 
             var context = new DbContext(connectionFactory);
 
@@ -48,7 +56,7 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
         public bool UserNameExists(string username, string email)
         {
-            connectionFactory = ConnectionHelper.GetConnection();
+            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
 
             var context = new DbContext(connectionFactory);
 

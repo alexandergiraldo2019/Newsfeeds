@@ -1,5 +1,6 @@
 ﻿using Deloitte.Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,14 @@ namespace Deloitte.UINewsfeeds.Controllers
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {
-        private Deloitte.ServiceNewsfeeds.Services.UserService _userService = new ServiceNewsfeeds.Services.UserService();
+        private IConfiguration _dataConfiguration;
+        private Deloitte.ServiceNewsfeeds.Services.UserService _userService;
+
+        public LoginController(IConfiguration dataConfiguration)
+        {
+            _dataConfiguration = dataConfiguration;
+            _userService = new ServiceNewsfeeds.Services.UserService(_dataConfiguration);
+        }
 
         [HttpGet]
         public User Get(string id, string password)
