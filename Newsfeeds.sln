@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deloitte.ServiceNewsfeeds", "Deloitte.ServiceNewsfeeds\Deloitte.ServiceNewsfeeds.csproj", "{434D472F-884B-4F23-B1CE-9B6DD4FE7C1C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deloitte.DataNewsfeeds", "Deloitte.DataNewsfeeds\Deloitte.DataNewsfeeds.csproj", "{AFDF4771-BEC8-45B1-AA47-53EEE165A7F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deloitte.UINewsfeeds", "Deloitte.UINewsfeeds\Deloitte.UINewsfeeds.csproj", "{1CEAEBFA-111E-4962-BE6C-22F2CE5C9673}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deloitte.Domain", "Deloitte.Domain\Deloitte.Domain.csproj", "{B2A1807F-184D-49F1-9418-8C6208C16625}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deloitte.Domain", "Deloitte.Domain\Deloitte.Domain.csproj", "{B2A1807F-184D-49F1-9418-8C6208C16625}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Deloitte.DatabaseSQL", "Deloitte.DatabaseSQL\Deloitte.DatabaseSQL.sqlproj", "{79186CE5-4793-4A7B-A6A8-88B6E7613FD8}"
 EndProject
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{434D472F-884B-4F23-B1CE-9B6DD4FE7C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{434D472F-884B-4F23-B1CE-9B6DD4FE7C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{434D472F-884B-4F23-B1CE-9B6DD4FE7C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{434D472F-884B-4F23-B1CE-9B6DD4FE7C1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFDF4771-BEC8-45B1-AA47-53EEE165A7F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFDF4771-BEC8-45B1-AA47-53EEE165A7F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFDF4771-BEC8-45B1-AA47-53EEE165A7F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
