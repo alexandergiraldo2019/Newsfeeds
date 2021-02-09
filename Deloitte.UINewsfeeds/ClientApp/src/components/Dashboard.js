@@ -6,43 +6,72 @@ export class Dashboard extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { newsinfo: [], loading: true };
+        this.state = { newsinfo: [], newsfeedsinfo: [], loading: true };
     }
 
     componentDidMount() {
         this.populateNews();
+        {/*this.populateNewsFeed();*/ }
     }
 
-    static renderNewsTable(newsinfo) {
+    static renderNewsTable(newsinfo, newsfeedsinfo) {
         return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Name.</th>
-                        <th>Url.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {newsinfo.map(newsreg =>
-                        <tr key={newsreg.feedId}>
-                            <td>{newsreg.feedId}</td>
-                            <td>{newsreg.feedName}</td>
-                            <td>{newsreg.apiUrl}</td>
+            <div>
+                <div>
+                    <div id="selectProvider">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3 m-1">
+                                    {newsfeedsinfo.map(newsreg =>
+                                        <div className="card">
+                                            <div className="card-header" key={newsreg.feedData.feedId}>{newsreg.feedData.feedName}</div>
+                                            <div className="card-body">
+                                                {newsreg.newsTop.map(newsdetreg =>
+                                                    <ul>
+                                                    <li>
+                                                            <a href={newsdetreg.urlNews}>{newsdetreg.title }</a>
+                                                    </li>
+                                                    </ul>
+                                                )}
+                                            </div>
+                                            <div className="card-footer">{newsreg.feedData.apiUrl}</div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table className='table table-striped' aria-labelledby="tabelLabel">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name.</th>
+                            <th>Url.</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {newsinfo.map(newsreg =>
+                            <tr key={newsreg.feedId}>
+                                <td>{newsreg.feedId}</td>
+                                <td>{newsreg.feedName}</td>
+                                <td>{newsreg.apiUrl}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Dashboard.renderNewsTable(this.state.newsinfo);
+            : Dashboard.renderNewsTable(this.state.newsinfo, this.state.newsfeedsinfo);
 
         return (
             <div>
+                {/*
                 <div id="selectProvider">
                     <div className="container">
                         <div className="row">
@@ -76,7 +105,8 @@ export class Dashboard extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*/}
+
                 <h1 id="tabelLabel" >News</h1>
                 <p>This component demonstrates fetching data from the server.</p>
                 {contents}
@@ -85,11 +115,29 @@ export class Dashboard extends Component {
     }
 
     async populateNews() {
+        {/*
         const token = await authService.getAccessToken();
         const response = await fetch('api/news/?idProvider=1', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
         this.setState({ newsinfo: data, loading: false });
+        */}
+
+        const token = await authService.getAccessToken();
+        const response = await fetch('/api/FeedNews', {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        this.setState({ newsfeedsinfo: data, loading: false });
+    }
+
+    async populateNewsFeed() {
+        const token = await authService.getAccessToken();
+        const response = await fetch('/api/FeedNews', {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        this.setState({ newsfeedsinfo: data, loading: false });
     }
 }
