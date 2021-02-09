@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Deloitte.UINewsfeeds.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
         private IConfiguration _dataConfiguration;
