@@ -14,6 +14,7 @@ namespace Deloitte.Domain
 
         public string Password { get; set; }
 
+
         //public class UserResponse
         //{
         //    public string Code { get; set; }

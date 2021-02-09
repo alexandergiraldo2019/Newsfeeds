@@ -12,6 +12,7 @@ namespace Deloitte.UINewsfeeds.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
+
         private IConfiguration _dataConfiguration;
         private Deloitte.ServiceNewsfeeds.Services.UserService _userService;
 
