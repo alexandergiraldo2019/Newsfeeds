@@ -25,10 +25,10 @@ export class Dashboard extends Component {
                 </thead>
                 <tbody>
                     {newsinfo.map(newsreg =>
-                        <tr key={newsreg.FeedId}>
-                            <td>{newsreg.FeedId}</td>
-                            <td>{newsreg.FeedName}</td>
-                            <td>{newsreg.ApiUrl}</td>
+                        <tr key={newsreg.feedId}>
+                            <td>{newsreg.feedId}</td>
+                            <td>{newsreg.feedName}</td>
+                            <td>{newsreg.apiUrl}</td>
                         </tr>
                     )}
                 </tbody>

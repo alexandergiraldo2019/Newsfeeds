@@ -58,13 +58,13 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
                 NewsList = new List<News>();
 
                 // Obtain news from API
-                NewsList.Add(new News { IdNews = Secuence, Title  = "Title " + Secuence.ToString() , URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString() });
+                NewsList.Add(new News { IdNews = Secuence, Title  = "Title " + Secuence.ToString() , URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString(), DateNews = "2020-02-09" });
                 Secuence++;
-                NewsList.Add(new News { IdNews = Secuence, Title = "Title " + Secuence.ToString(), URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString() });
+                NewsList.Add(new News { IdNews = Secuence, Title = "Title " + Secuence.ToString(), URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString(), DateNews = "2020-02-09" });
                 Secuence++;
-                NewsList.Add(new News { IdNews = Secuence, Title = "Title " + Secuence.ToString(), URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString() });
+                NewsList.Add(new News { IdNews = Secuence, Title = "Title " + Secuence.ToString(), URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString(), DateNews = "2020-02-09" });
                 Secuence++;
-                NewsList.Add(new News { IdNews = Secuence, Title = "Title " + Secuence.ToString(), URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString() });
+                NewsList.Add(new News { IdNews = Secuence, Title = "Title " + Secuence.ToString(), URLImage = "https://www.google.com/imagen.jpg", URLNews = "https://www.google.com/noticia1.html", Author = "Author " + Secuence.ToString(), Content = "Lorem ipsum " + Secuence.ToString(), Description = "Lorem Ipsum Ipsum " + Secuence.ToString(), DateNews = "2020-02-09" });
                 Secuence++;
 
                 NewReg.FeedData = item;

@@ -18,6 +18,8 @@ namespace Deloitte.Domain
 
         public string URLNews { get; set; }
 
+        public string DateNews { get; set; }
+
         public string Author { get; set; }
 
     }
