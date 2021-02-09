@@ -8,5 +8,6 @@ namespace Deloitte.ServiceNewsfeeds.Interfaces
     public interface INewsFeedService
     {
         IList<NewsFeed> GetNewsFeeds();
+        List<News> GetNews();
     }
 }

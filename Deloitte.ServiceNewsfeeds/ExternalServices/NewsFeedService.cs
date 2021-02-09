@@ -4,7 +4,10 @@ using Deloitte.ServiceNewsfeeds.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Text;
+using System.Xml;
 
 namespace Deloitte.ServiceNewsfeeds.ExternalServices
 {
@@ -73,6 +76,27 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
             }
 
             return NewsFeedList;
+        }
+
+        public List<News> GetNews()
+        {
+            List<News> news = new List<News>();
+            string url = "https://rss.nytimes.com/services/xml/rss/nyt/MostViewed.xml";
+            XmlReader reader = XmlReader.Create(url);
+            SyndicationFeed feed = SyndicationFeed.Load(reader);
+            reader.Close();
+            foreach (SyndicationItem item in feed.Items)
+            {
+                News source = new News()
+                {
+                    Title = item.Title.Text,
+                    DateNews = item.PublishDate.DateTime.ToShortDateString(),
+                    URLNews = item.Links.FirstOrDefault().Uri.OriginalString,
+                    Description = item.Summary.Text
+                };
+                news.Add(source);
+            }
+            return news;
         }
     }
 }

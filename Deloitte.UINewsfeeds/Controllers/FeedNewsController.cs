@@ -29,5 +29,14 @@ namespace Deloitte.UINewsfeeds.Controllers
             List<NewsFeed> NewsFeedsList = (List<NewsFeed>) _newsFeedService.GetNewsFeeds();
             return (NewsFeedsList);
         }
+
+        [Route("GetNews")]
+        [HttpGet]
+        //public IEnumerable<NewsFeed> GetFeedNews()
+        public IEnumerable<News> GetNews()
+        {
+            List<News> news = _newsFeedService.GetNews();
+            return (news);
+        }
     }
 }
