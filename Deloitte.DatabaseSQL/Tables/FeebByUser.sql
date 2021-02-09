@@ -1,10 +1,12 @@
-﻿CREATE TABLE [dbo].[Feeds](
+﻿CREATE TABLE [dbo].[FeebByUser](
+	[IdFeedByUser] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
 	[FeedId] [int] NOT NULL,
-	[FeedName] [varchar](15) NOT NULL,
-	[ApiUrl] [varchar](50) NOT NULL,
- CONSTRAINT [PK_Feeds] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_FeebByUser] PRIMARY KEY CLUSTERED 
 (
+	[UserId] ASC,
 	[FeedId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+

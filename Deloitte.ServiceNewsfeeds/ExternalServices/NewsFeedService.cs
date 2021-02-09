@@ -30,14 +30,14 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
 
             foreach (var item in FeedList)
             {
-                NewReg = = new NewsFeed();
+                NewReg = new NewsFeed();
 
                 NewsList = new List<News>();
 
                 // Obtain news from API
                 var Result = ServicioAPI.Get<List<News>>(item.ApiUrl, "", "", "", "");
 
-                NewsList = (List<News>)Result.Result;
+                //NewsList = (List<News>)Result.Result;
 
                 NewReg.FeedData = item;
                 NewReg.NewsTop = NewsList;
