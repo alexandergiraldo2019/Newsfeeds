@@ -67,5 +67,4 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
         }
     }
-
 }
