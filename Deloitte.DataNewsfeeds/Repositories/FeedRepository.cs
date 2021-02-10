@@ -6,14 +6,14 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
+using Deloitte.DataNewsfeeds.Interfaces;
 
 namespace Deloitte.DataNewsfeeds.Repositories
 {
-    public class FeedRepository : Repository<Feed>
+    public class FeedRepository : IFeedRepository
     {
         private DbContext _context;
         public FeedRepository(DbContext context)
-            : base(context)
         {
             _context = context;
         }
@@ -81,5 +81,32 @@ namespace Deloitte.DataNewsfeeds.Repositories
                 return LUserFeeds;
             }
         }
+
+        protected IEnumerable<Feed> ToList(IDbCommand command)
+        {
+            using (var record = command.ExecuteReader())
+            {
+                List<Feed> items = new List<Feed>();
+                while (record.Read())
+                {
+                    items.Add(Map<Feed>(record));
+                }
+                return items;
+            }
+        }
+
+        protected TEntity Map<TEntity>(IDataRecord record)
+        {
+            var objT = Activator.CreateInstance<TEntity>();
+            foreach (var property in typeof(TEntity).GetProperties())
+            {
+                if (record.HasColumn(property.Name) && !record.IsDBNull(record.GetOrdinal(property.Name)))
+                    property.SetValue(objT, record[property.Name]);
+
+
+            }
+            return objT;
+        }
+
     }
 }

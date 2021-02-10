@@ -13,16 +13,16 @@ namespace Deloitte.ServiceNewsfeeds.Services
     public class UserService : IUserService
     {
         private IConnectionFactory connectionFactory;
-        private IConfiguration _DataConfiguration;
+        private string _connectionString;
 
-        public UserService(IConfiguration dataConfiguration)
+        public UserService(string connectionString)
         {
-            _DataConfiguration = dataConfiguration;
+            _connectionString = connectionString;
         }
 
         public IList<User> GetUsers()
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
+            connectionFactory = ConnectionHelper.GetConnection(_connectionString);
 
             var context = new DbContext(connectionFactory);
 
@@ -33,7 +33,7 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
         public User RegisterUser(User user)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
+            connectionFactory = ConnectionHelper.GetConnection(_connectionString);
 
             var context = new DbContext(connectionFactory);
 
@@ -45,7 +45,7 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
         public User Login(string id, string password)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
+            connectionFactory = ConnectionHelper.GetConnection(_connectionString);
 
             var context = new DbContext(connectionFactory);
 
@@ -56,7 +56,7 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
         public bool UserNameExists(string username, string email)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
+            connectionFactory = ConnectionHelper.GetConnection(_connectionString);
 
             var context = new DbContext(connectionFactory);
 

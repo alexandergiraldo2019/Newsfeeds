@@ -14,22 +14,24 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
     public class NewsFeedService : INewsFeedService
     {
         private IConfiguration _DataConfiguration;
+        private IFeedService _FeedService;
 
-        public NewsFeedService(IConfiguration dataConfiguration)
+        public NewsFeedService(IConfiguration dataConfiguration, IFeedService feedService)
         {
             _DataConfiguration = dataConfiguration;
+            _FeedService = feedService;
         }
 
         public IList<NewsFeed> GetNewsFeeds()
         {
-            FeedService serviceFeed = new FeedService(_DataConfiguration);
+            
             ServiceAction ServicioAPI = new ServiceAction();
             List<Feed> FeedList = new List<Feed>();
             List<News> NewsList;
             List<NewsFeed> NewsFeedList = new List<NewsFeed>();
             NewsFeed NewReg ;
 
-            FeedList = (List<Feed>)serviceFeed.GetFeeds();
+            FeedList = (List<Feed>)_FeedService.GetFeeds();
 
             foreach (var item in FeedList)
             {
@@ -102,6 +104,35 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
                 news.Add(source);
             }
             return news;
+        }
+
+        public List<NewsFeed> GetNewsFeedsByUser(string login)
+        {
+            List<NewsFeed> newsFeeds = new List<NewsFeed>();
+            List<Feed> feeds = _FeedService.GetFeedsByUser(login);
+            foreach (var feed in feeds)
+            {
+                NewsFeed newsFeed = new NewsFeed();
+                List<News> news = new List<News>();
+                XmlReader reader = XmlReader.Create(feed.ApiUrl);
+                SyndicationFeed feedXml = SyndicationFeed.Load(reader);
+                reader.Close();
+                foreach (SyndicationItem item in feedXml.Items)
+                {
+                    News source = new News()
+                    {
+                        IdNews = item.Id.FirstOrDefault(),
+                        Title = item.Title.Text,
+                        DateNews = item.PublishDate.DateTime.ToShortDateString(),
+                        URLNews = item.Links.FirstOrDefault().Uri.OriginalString,
+                        Description = item.Summary.Text
+                    };
+                    news.Add(source);
+                }
+                newsFeed.FeedData = feed;
+                newsFeed.NewsTop = news.Take(10).ToList();
+            }
+            return newsFeeds;
         }
     }
 }

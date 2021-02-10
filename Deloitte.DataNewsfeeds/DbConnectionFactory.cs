@@ -16,30 +16,27 @@ namespace Deloitte.DataNewsfeeds
         private readonly string _connectionString;
         private readonly string _name;
 
-        public DbConnectionFactory(string connectionName, string providername, IConfiguration dataConfiguration)
+        public DbConnectionFactory(string connectionString)
         {
-            if (connectionName == null) throw new ArgumentNullException("connectionName");
 
-            if (providername == null) throw new ArgumentNullException("providername");
+            if (connectionString == null) throw new ArgumentNullException("providername");
 
-            string StrConection = dataConfiguration.GetConnectionString(connectionName);
-            string ProvConection = dataConfiguration.GetConnectionString(providername);
 
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(StrConection);
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString);
 
             //var conStr = ConfigurationManager.ConnectionStrings[connectionName];
             var conStr = builder;
 
             if (conStr == null)
-                throw new ConfigurationErrorsException(string.Format("Failed to find connection string named '{0}' in app/web.config.", connectionName));
+                throw new ConfigurationErrorsException(string.Format("Failed to find connection string named '{0}' in app/web.config.", connectionString));
 
             //_name = conStr.ProviderName;
-            _name = providername;
+            _name = "DataContext";
             DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
             //for Connection
             //_provider = DbProviderFactories.GetFactory("System.Data.SqlClient");
             //_provider = DbProviderFactories.GetFactory(conStr.ProviderName);
-            _provider = DbProviderFactories.GetFactory(providername);
+            _provider = DbProviderFactories.GetFactory("DataContext");
             _connectionString = conStr.ConnectionString;
 
         }

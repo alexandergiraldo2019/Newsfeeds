@@ -1,4 +1,5 @@
 ﻿using Deloitte.Domain;
+using Deloitte.ServiceNewsfeeds.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,22 +15,22 @@ namespace Deloitte.UINewsfeeds.Controllers
     [ApiController]
     public class FeedNewsController : ControllerBase
     {
-        private IConfiguration _dataConfiguration;
-        private Deloitte.ServiceNewsfeeds.ExternalServices.NewsFeedService _newsFeedService;
-        private Deloitte.ServiceNewsfeeds.Services.FeedService _FeedService;
+        private readonly IConfiguration _dataConfiguration;
+        private readonly IFeedService _FeedService;
+        private readonly INewsFeedService _NewsFeedService;
 
 
-        public FeedNewsController(IConfiguration dataConfiguration)
+        public FeedNewsController(IConfiguration dataConfiguration, IFeedService FeedService, INewsFeedService NewsFeedService)
         {
             _dataConfiguration = dataConfiguration;
-            _newsFeedService = new ServiceNewsfeeds.ExternalServices.NewsFeedService(dataConfiguration);
-            _FeedService = new ServiceNewsfeeds.Services.FeedService(dataConfiguration);
+            _FeedService = FeedService;
+            _NewsFeedService = NewsFeedService;
         }
 
         [HttpGet]
         public IEnumerable<NewsFeed> GetFeedNews()
         {
-            List<NewsFeed> NewsFeedsList = (List<NewsFeed>) _newsFeedService.GetNewsFeeds();
+            List<NewsFeed> NewsFeedsList = (List<NewsFeed>)_NewsFeedService.GetNewsFeeds();
             return (NewsFeedsList);
         }
 
@@ -38,7 +39,7 @@ namespace Deloitte.UINewsfeeds.Controllers
         //public IEnumerable<NewsFeed> GetFeedNews()
         public IEnumerable<News> GetNews()
         {
-            List<News> news = _newsFeedService.GetNews();
+            List<News> news = _NewsFeedService.GetNews();
             return (news);
         }
 

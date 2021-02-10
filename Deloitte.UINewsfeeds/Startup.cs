@@ -1,3 +1,8 @@
+using Deloitte.DataNewsfeeds;
+using Deloitte.DataNewsfeeds.Interfaces;
+using Deloitte.DataNewsfeeds.Repositories;
+using Deloitte.ServiceNewsfeeds.ExternalServices;
+using Deloitte.ServiceNewsfeeds.Interfaces;
 using Deloitte.UINewsfeeds.AppStart;
 using Deloitte.UINewsfeeds.Data;
 using Deloitte.UINewsfeeds.Models;
@@ -31,6 +36,11 @@ namespace Deloitte.UINewsfeeds
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(Configuration);
             serviceConfiguration.SCConfigureServices(services);
 
+            services.AddScoped<INewsFeedService, NewsFeedService>();
+            services.AddScoped<IConnectionFactory, DbConnectionFactory>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFeedRepository, FeedRepository>();
+
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection")));
@@ -48,7 +58,7 @@ namespace Deloitte.UINewsfeeds
 
             //services.AddControllersWithViews();
             //services.AddRazorPages();
-
+             
             //// In production, the React files will be served from this directory
             //services.AddSpaStaticFiles(configuration =>
             //{

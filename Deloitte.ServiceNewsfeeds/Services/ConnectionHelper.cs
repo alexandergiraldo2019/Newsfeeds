@@ -8,9 +8,9 @@ namespace Deloitte.ServiceNewsfeeds.Services
 {
     public static class ConnectionHelper
     {
-        public static IConnectionFactory GetConnection(IConfiguration dataConfiguration)
+        public static IConnectionFactory GetConnection(string connectionString)
         {
-            return new DbConnectionFactory("DataContext", "System.Data.SqlClient", dataConfiguration);
+            return new DbConnectionFactory(connectionString);
         }
     }
 }

@@ -9,8 +9,6 @@ namespace Deloitte.DataNewsfeeds
 {
     public class DbContext
     {
-
-
         private readonly IDbConnection _connection;
         private readonly IConnectionFactory _connectionFactory;
         private readonly ReaderWriterLockSlim _rwLock = new ReaderWriterLockSlim();
