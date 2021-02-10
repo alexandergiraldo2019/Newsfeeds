@@ -31,6 +31,7 @@ namespace Deloitte.UINewsfeeds.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Get(string id, string password)
         {
+            password = EcriptarString(password);
             User _user = _userService.Login(id, password);
             if (_user != null)
             {
@@ -41,7 +42,6 @@ namespace Deloitte.UINewsfeeds.Controllers
                 return Unauthorized();
             }
         }
-
         private string GenerarTokenJWT(User _user)
         {
             // CREAMOS EL HEADER //
@@ -81,6 +81,23 @@ namespace Deloitte.UINewsfeeds.Controllers
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(_Token);
+        }
+
+        private string EcriptarString(string Cadena)
+        {
+            string result = string.Empty;
+            byte[] encryted = System.Text.Encoding.Unicode.GetBytes(Cadena);
+            result = Convert.ToBase64String(encryted);
+            return result;
+
+        }
+        /// Esta función desencripta la cadena que le envíamos en el parámentro de entrada.
+        private string DesencriptarString(string Cadena)
+        {
+            string result = string.Empty;
+            byte[] decryted = Convert.FromBase64String(Cadena);
+            result = System.Text.Encoding.Unicode.GetString(decryted);
+            return result;
         }
     }
 }
