@@ -47,6 +47,9 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
                 NewsFeedList.Add(NewReg);
             }
 
+            FeedList = new List<Feed>();
+            NewsFeedList = new List<NewsFeed>();
+
             FeedList.Add(new Feed { FeedId = 1, FeedName = "Google", ApiUrl = "https://news.google.com" });
             FeedList.Add(new Feed { FeedId = 2, FeedName = "Yahoo", ApiUrl = "https://news.yahoo.com" });
             FeedList.Add(new Feed { FeedId = 3, FeedName = "ApiNews", ApiUrl = "https://www.apinews.com" });
