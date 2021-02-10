@@ -16,5 +16,8 @@ namespace Deloitte.ServiceNewsfeeds.Interfaces
         //[OperationContract]
         bool CreateFeed(Feed feed);
 
+        // Develve los feed por usuario
+        List<Feed> GetFeedsByUser(string Login);
+
     }
 }
