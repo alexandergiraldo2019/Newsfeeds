@@ -70,5 +70,6 @@
     <Build Include="Tables\Feed.sql" />
     <Build Include="Tables\Option.sql" />
     <Build Include="Tables\UserFeed.sql" />
+    <Build Include="Procedures\stpGetFeedsByUser.sql" />
   </ItemGroup>
 </Project>

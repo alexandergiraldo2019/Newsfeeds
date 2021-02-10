@@ -54,5 +54,16 @@ namespace Deloitte.ServiceNewsfeeds.Services
 
             return Rep.GetFeeds();
         }
+
+        public List<Feed> GetFeedsByUser(string Login)
+        {
+            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
+
+            var context = new DbContext(connectionFactory);
+
+            var Rep = new FeedRepository(context);
+
+            return Rep.GetFeedsByUser(Login);
+        }
     }
 }
