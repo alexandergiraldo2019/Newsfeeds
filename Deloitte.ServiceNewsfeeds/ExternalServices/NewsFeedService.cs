@@ -92,6 +92,7 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
             {
                 News source = new News()
                 {
+                    IdNews = item.Id.FirstOrDefault(),
                     Title = item.Title.Text,
                     DateNews = item.PublishDate.DateTime.ToShortDateString(),
                     URLNews = item.Links.FirstOrDefault().Uri.OriginalString,
