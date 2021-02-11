@@ -9,5 +9,11 @@ namespace Deloitte.ServiceNewsfeeds.Interfaces
     {
         IList<NewsFeed> GetNewsFeeds();
         List<News> GetNews();
+        /// <summary>
+        /// Get top 10 News for the user suscribe feeds
+        /// </summary>
+        /// <param name="login">username</param>
+        /// <returns>Top 10 news for each feed suscribed</returns>
+        List<NewsFeed> GetNewsFeedsByUser(string login);
     }
 }

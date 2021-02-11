@@ -1,4 +1,5 @@
 ﻿using Deloitte.DataNewsfeeds.Extensions;
+using Deloitte.DataNewsfeeds.Interfaces;
 using Deloitte.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,10 @@ using System.Text;
 
 namespace Deloitte.DataNewsfeeds.Repositories
 {
-    public class UserRepository : Repository<User>
+    public class UserRepository : IUserRepository
     {
-        private DbContext _context;
-        public UserRepository(DbContext context)
-            : base(context)
+        private IDbContext _context;
+        public UserRepository(IDbContext context)
         {
             _context = context;
         }
@@ -76,7 +76,31 @@ namespace Deloitte.DataNewsfeeds.Repositories
                 return this.ToList(command).FirstOrDefault();
             }
         }
+        protected IEnumerable<User> ToList(IDbCommand command)
+        {
+            using (var record = command.ExecuteReader())
+            {
+                List<User> items = new List<User>();
+                while (record.Read())
+                {
+                    items.Add(Map<User>(record));
+                }
+                return items;
+            }
+        }
 
+        protected TEntity Map<TEntity>(IDataRecord record)
+        {
+            var objT = Activator.CreateInstance<TEntity>();
+            foreach (var property in typeof(TEntity).GetProperties())
+            {
+                if (record.HasColumn(property.Name) && !record.IsDBNull(record.GetOrdinal(property.Name)))
+                    property.SetValue(objT, record[property.Name]);
+
+
+            }
+            return objT;
+        }
 
     }
 

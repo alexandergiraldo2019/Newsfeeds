@@ -1,4 +1,5 @@
 ﻿using Deloitte.DataNewsfeeds;
+using Deloitte.DataNewsfeeds.Interfaces;
 using Deloitte.DataNewsfeeds.Repositories;
 using Deloitte.Domain;
 using Deloitte.ServiceNewsfeeds.Interfaces;
@@ -11,59 +12,35 @@ namespace Deloitte.ServiceNewsfeeds.Services
 {
     public class FeedService : IFeedService
     {
-        private IConnectionFactory connectionFactory;
-        private IConfiguration _DataConfiguration;
+        private IFeedRepository _FeedRepository;
 
-        public FeedService(IConfiguration dataConfiguration)
+
+        public FeedService(IFeedRepository feedRepository)
         {
-            _DataConfiguration = dataConfiguration;
+            _FeedRepository = feedRepository;
         }
 
         public bool CreateFeed(Feed feed)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var Rep = new FeedRepository(context);
-
-            var result =  Rep.CreateFeed(feed);
-
+            var result = _FeedRepository.CreateFeed(feed);
             return !(result != null && result.FeedId > 0);
 
         }
 
         public Feed GetFeed(int id)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var Rep = new FeedRepository(context);
-
-            return Rep.GetFeed(id);
+            return _FeedRepository.GetFeed(id);
         }
 
         public IList<Feed> GetFeeds()
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var Rep = new FeedRepository(context);
-
-            return Rep.GetFeeds();
+            return _FeedRepository.GetFeeds();
         }
 
         public List<Feed> GetFeedsByUser(string Login)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var Rep = new FeedRepository(context);
-
-            return Rep.GetFeedsByUser(Login);
+            
+            return _FeedRepository.GetFeedsByUser(Login);
         }
     }
 }

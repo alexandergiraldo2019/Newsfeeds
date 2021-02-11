@@ -1,3 +1,9 @@
+using Deloitte.DataNewsfeeds;
+using Deloitte.DataNewsfeeds.Interfaces;
+using Deloitte.DataNewsfeeds.Repositories;
+using Deloitte.ServiceNewsfeeds.ExternalServices;
+using Deloitte.ServiceNewsfeeds.Interfaces;
+using Deloitte.ServiceNewsfeeds.Services;
 using Deloitte.UINewsfeeds.AppStart;
 using Deloitte.UINewsfeeds.Data;
 using Deloitte.UINewsfeeds.Models;
@@ -31,6 +37,7 @@ namespace Deloitte.UINewsfeeds
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(Configuration);
             serviceConfiguration.SCConfigureServices(services);
 
+            
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection")));

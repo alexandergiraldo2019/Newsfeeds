@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Deloitte.DataNewsfeeds.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,10 +8,8 @@ using System.Threading;
 
 namespace Deloitte.DataNewsfeeds
 {
-    public class DbContext
+    public class DbContext : IDbContext
     {
-
-
         private readonly IDbConnection _connection;
         private readonly IConnectionFactory _connectionFactory;
         private readonly ReaderWriterLockSlim _rwLock = new ReaderWriterLockSlim();
@@ -56,6 +55,11 @@ namespace Deloitte.DataNewsfeeds
         public void Dispose()
         {
             _connection.Dispose();
+        }
+
+        void IDbContext.RemoveTransaction(AdoNetUnitOfWork obj)
+        {
+            throw new NotImplementedException();
         }
     }
 

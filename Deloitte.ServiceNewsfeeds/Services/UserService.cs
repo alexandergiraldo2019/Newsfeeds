@@ -1,4 +1,5 @@
 ﻿using Deloitte.DataNewsfeeds;
+using Deloitte.DataNewsfeeds.Interfaces;
 using Deloitte.DataNewsfeeds.Repositories;
 using Deloitte.Domain;
 using Deloitte.ServiceNewsfeeds.Interfaces;
@@ -13,56 +14,32 @@ namespace Deloitte.ServiceNewsfeeds.Services
     public class UserService : IUserService
     {
         private IConnectionFactory connectionFactory;
-        private IConfiguration _DataConfiguration;
+        private readonly IUserRepository _UserRepository;
 
-        public UserService(IConfiguration dataConfiguration)
+        public UserService(IUserRepository UserRepository)
         {
-            _DataConfiguration = dataConfiguration;
+            _UserRepository = UserRepository;
         }
 
         public IList<User> GetUsers()
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var userRep = new UserRepository(context);
-
-            return userRep.GetUsers();
+            return _UserRepository.GetUsers();
         }
 
         public User RegisterUser(User user)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var userRep = new UserRepository(context);
-
-            return userRep.CreateUser(user);
+            return _UserRepository.CreateUser(user);
         }
 
 
         public User Login(string id, string password)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var userRep = new UserRepository(context);
-
-            return userRep.LoginUser(id, password);
+            return _UserRepository.LoginUser(id, password);
         }
 
         public bool UserNameExists(string username, string email)
         {
-            connectionFactory = ConnectionHelper.GetConnection(_DataConfiguration);
-
-            var context = new DbContext(connectionFactory);
-
-            var userRep = new UserRepository(context);
-
-            var user = userRep.GetUserByUsernameOrEmail(username, email);
+            var user = _UserRepository.GetUserByUsernameOrEmail(username, email);
             return !(user != null && user.UserID > 0);
 
         }
