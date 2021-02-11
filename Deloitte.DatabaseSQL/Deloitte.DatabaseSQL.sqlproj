@@ -76,4 +76,7 @@
     <Build Include="Scripts\IndexForFeedByuser.sql" />
     <Build Include="Tables\FeebByUser.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\CreacionObjetosBDyDatosPrueba.sql" />
+  </ItemGroup>
 </Project>
