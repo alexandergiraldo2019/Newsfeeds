@@ -14,6 +14,7 @@ export class Dashboard extends Component {
     componentDidMount() {
         this.populateNews();
         {/*this.populateNewsFeed();*/ }
+
     }
 
     static renderNewsTable(newsinfo, newsfeedsinfo) {
