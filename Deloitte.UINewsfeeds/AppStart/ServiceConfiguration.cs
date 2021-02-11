@@ -1,4 +1,10 @@
-﻿using Deloitte.UINewsfeeds.Data;
+﻿using Deloitte.DataNewsfeeds;
+using Deloitte.DataNewsfeeds.Interfaces;
+using Deloitte.DataNewsfeeds.Repositories;
+using Deloitte.ServiceNewsfeeds.ExternalServices;
+using Deloitte.ServiceNewsfeeds.Interfaces;
+using Deloitte.ServiceNewsfeeds.Services;
+using Deloitte.UINewsfeeds.Data;
 using Deloitte.UINewsfeeds.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +43,14 @@ namespace Deloitte.UINewsfeeds.AppStart
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddScoped<IFeedService, FeedService>();
+            services.AddScoped<INewsFeedService, NewsFeedService>();
+            services.AddScoped<IConnectionFactory>(x => new DbConnectionFactory("System.Data.SqlClient", Configuration.GetConnectionString("DataContext")));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFeedRepository, FeedRepository>();
+            services.AddScoped<IDbContext, DataNewsfeeds.DbContext>();
+            services.Configure<JWT>(Configuration.GetSection("JWT"));
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

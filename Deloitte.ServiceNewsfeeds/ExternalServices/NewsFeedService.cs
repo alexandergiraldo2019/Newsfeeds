@@ -1,4 +1,5 @@
-﻿using Deloitte.Domain;
+﻿using Deloitte.DataNewsfeeds.Interfaces;
+using Deloitte.Domain;
 using Deloitte.ServiceNewsfeeds.Interfaces;
 using Deloitte.ServiceNewsfeeds.Services;
 using Microsoft.Extensions.Configuration;
@@ -15,11 +16,13 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
     {
         private IConfiguration _DataConfiguration;
         private IFeedService _FeedService;
+        private IFeedRepository _FeedRepository;
 
-        public NewsFeedService(IConfiguration dataConfiguration, IFeedService feedService)
+        public NewsFeedService(IConfiguration dataConfiguration, IFeedService feedService, IFeedRepository feedRepository)
         {
             _DataConfiguration = dataConfiguration;
             _FeedService = feedService;
+            _FeedRepository = feedRepository;
         }
 
         public IList<NewsFeed> GetNewsFeeds()
@@ -109,7 +112,7 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
         public List<NewsFeed> GetNewsFeedsByUser(string login)
         {
             List<NewsFeed> newsFeeds = new List<NewsFeed>();
-            List<Feed> feeds = _FeedService.GetFeedsByUser(login);
+            List<Feed> feeds = _FeedRepository.GetFeedsByUser(login);
             foreach (var feed in feeds)
             {
                 NewsFeed newsFeed = new NewsFeed();
