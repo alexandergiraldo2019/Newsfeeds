@@ -16,7 +16,7 @@ namespace Deloitte.DataNewsfeeds
         private readonly string _connectionString;
         private readonly string _name;
 
-        public DbConnectionFactory(string connectionString)
+        public DbConnectionFactory(string providername, string connectionString)
         {
             _connectionString = connectionString;
 
@@ -33,11 +33,11 @@ namespace Deloitte.DataNewsfeeds
 
             //_name = conStr.ProviderName;
             _name = "DataContext";
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory(providername, System.Data.SqlClient.SqlClientFactory.Instance);
             //for Connection
             //_provider = DbProviderFactories.GetFactory("System.Data.SqlClient");
             //_provider = DbProviderFactories.GetFactory(conStr.ProviderName);
-            _provider = DbProviderFactories.GetFactory("DataContext");
+            _provider = DbProviderFactories.GetFactory(providername);
             _connectionString = conStr.ConnectionString;
 
         }

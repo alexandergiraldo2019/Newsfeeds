@@ -39,7 +39,7 @@ namespace Deloitte.UINewsfeeds
 
             services.AddScoped<IFeedService, FeedService>();
             services.AddScoped<INewsFeedService, NewsFeedService>();
-            services.AddScoped<IConnectionFactory>(x =>new DbConnectionFactory(Configuration.GetConnectionString("DataContext")));
+            services.AddScoped<IConnectionFactory>(x =>new DbConnectionFactory("System.Data.SqlClient", Configuration.GetConnectionString("DataContext")));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFeedRepository, FeedRepository>();
             services.AddScoped<IDbContext, DataNewsfeeds.DbContext>();
