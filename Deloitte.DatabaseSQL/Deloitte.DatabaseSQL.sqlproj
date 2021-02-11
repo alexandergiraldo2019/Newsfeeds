@@ -71,5 +71,9 @@
     <Build Include="Tables\Option.sql" />
     <Build Include="Tables\UserFeed.sql" />
     <Build Include="Procedures\stpGetFeedsByUser.sql" />
+    <Build Include="Procedures\GetFeeds.sql" />
+    <Build Include="Procedures\GetFeedsByIdUser.sql" />
+    <Build Include="Scripts\IndexForFeedByuser.sql" />
+    <Build Include="Tables\FeebByUser.sql" />
   </ItemGroup>
 </Project>
