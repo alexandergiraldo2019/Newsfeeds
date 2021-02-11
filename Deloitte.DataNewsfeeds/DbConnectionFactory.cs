@@ -18,17 +18,18 @@ namespace Deloitte.DataNewsfeeds
 
         public DbConnectionFactory(string connectionString)
         {
+            _connectionString = connectionString;
 
             if (connectionString == null) throw new ArgumentNullException("providername");
 
 
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectionString);
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(_connectionString);
 
             //var conStr = ConfigurationManager.ConnectionStrings[connectionName];
             var conStr = builder;
 
             if (conStr == null)
-                throw new ConfigurationErrorsException(string.Format("Failed to find connection string named '{0}' in app/web.config.", connectionString));
+                throw new ConfigurationErrorsException(string.Format("Failed to find connection string named '{0}' in app/web.config.", _connectionString));
 
             //_name = conStr.ProviderName;
             _name = "DataContext";

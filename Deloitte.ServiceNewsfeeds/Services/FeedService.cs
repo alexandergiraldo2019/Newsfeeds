@@ -12,15 +12,11 @@ namespace Deloitte.ServiceNewsfeeds.Services
 {
     public class FeedService : IFeedService
     {
-        private IConnectionFactory _ConnectionFactory;
-        private IConfiguration _DataConfiguration;
         private IFeedRepository _FeedRepository;
 
 
-        public FeedService(IConfiguration dataConfiguration, IConnectionFactory connectionFactory, IFeedRepository feedRepository)
+        public FeedService(IFeedRepository feedRepository)
         {
-            _DataConfiguration = dataConfiguration;
-            _ConnectionFactory = connectionFactory;
             _FeedRepository = feedRepository;
         }
 

@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace Deloitte.UINewsfeeds.Models
 {
-    public class Jwt
+    public class JWT
     {
+        public string ClaveSecreta { get; set; }
+        public string Issuer { get; set; }
+        public string Audience { get; set; }
     }
 }

@@ -11,8 +11,8 @@ namespace Deloitte.DataNewsfeeds.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private DbContext _context;
-        public UserRepository(DbContext context)
+        private IDbContext _context;
+        public UserRepository(IDbContext context)
         {
             _context = context;
         }

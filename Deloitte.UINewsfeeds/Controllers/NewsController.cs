@@ -1,4 +1,5 @@
 ﻿using Deloitte.Domain;
+using Deloitte.ServiceNewsfeeds.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -13,15 +14,13 @@ namespace Deloitte.UINewsfeeds.Controllers
     [Route("api/[controller]")]
     public class NewsController : ControllerBase
     {
-        private IConfiguration _dataConfiguration;
-        private Deloitte.ServiceNewsfeeds.ExternalServices.FeedExteranlService _feedExternalService;
-        private Deloitte.ServiceNewsfeeds.Services.FeedService _feedService;
+        private IFeedExternalServices _feedExternalService;
+        private IFeedService _feedService;
 
-        public NewsController(IConfiguration dataConfiguration)
+        public NewsController(IFeedExternalServices feedExternalService, IFeedService feedService)
         {
-            _dataConfiguration = dataConfiguration;
-            _feedExternalService = new ServiceNewsfeeds.ExternalServices.FeedExteranlService();
-            _feedService = new ServiceNewsfeeds.Services.FeedService(dataConfiguration);
+            _feedExternalService = feedExternalService;
+            _feedService = feedService;
         }
 
         [HttpGet]

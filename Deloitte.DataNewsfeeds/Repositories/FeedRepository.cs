@@ -12,8 +12,8 @@ namespace Deloitte.DataNewsfeeds.Repositories
 {
     public class FeedRepository : IFeedRepository
     {
-        private DbContext _context;
-        public FeedRepository(DbContext context)
+        private IDbContext _context;
+        public FeedRepository(IDbContext context)
         {
             _context = context;
         }

@@ -1,8 +1,10 @@
 ﻿using Deloitte.Domain;
 using Deloitte.ServiceNewsfeeds.Interfaces;
+using Deloitte.UINewsfeeds.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -18,11 +20,13 @@ namespace Deloitte.UINewsfeeds.Controllers
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
+        private readonly IOptions<JWT> _config;
 
-        public LoginController( IUserService userService)
+        public LoginController( IUserService userService, IOptions<JWT> config)
         {
             _userService = userService;
+            _config = config;
         }
 
         [HttpGet]
@@ -44,7 +48,7 @@ namespace Deloitte.UINewsfeeds.Controllers
         {
             // CREAMOS EL HEADER //
             var _symmetricSecurityKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(_dataConfiguration["JWT:ClaveSecreta"])
+                    Encoding.UTF8.GetBytes(_config.Value.ClaveSecreta)
                 );
             var _signingCredentials = new SigningCredentials(
                     _symmetricSecurityKey, SecurityAlgorithms.HmacSha256
@@ -63,8 +67,8 @@ namespace Deloitte.UINewsfeeds.Controllers
 
             // CREAMOS EL PAYLOAD //
             var _Payload = new JwtPayload(
-                    issuer: _dataConfiguration["JWT:Issuer"],
-                    audience: _dataConfiguration["JWT:Audience"],
+                    issuer: _config.Value.Issuer,
+                    audience: _config.Value.Audience,
                     claims: _Claims,
                     // definimos desde que fecha y hora es valido
                     notBefore: DateTime.UtcNow,
