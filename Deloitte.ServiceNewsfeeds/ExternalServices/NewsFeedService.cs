@@ -84,6 +84,7 @@ namespace Deloitte.ServiceNewsfeeds.ExternalServices
         public List<News> GetNews()
         {
             List<News> news = new List<News>();
+            //Devuelva los feeds del usuario
             string url = "https://rss.nytimes.com/services/xml/rss/nyt/MostViewed.xml";
             XmlReader reader = XmlReader.Create(url);
             SyndicationFeed feed = SyndicationFeed.Load(reader);

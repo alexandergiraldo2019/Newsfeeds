@@ -48,7 +48,6 @@ namespace Deloitte.DataNewsfeeds.Repositories
 
         }
 
-
         public User LoginUser(string id, string password)
         {
             using (var command = _context.CreateCommand())
