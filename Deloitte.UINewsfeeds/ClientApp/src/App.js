@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Dashboard } from './components/Dashboard';
+import { DashboardF } from './components/DashboardF';
 import { Counter } from './components/Counter';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
@@ -19,6 +20,7 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
             {/*<AuthorizeRoute path='/Dashboard' component={Dashboard} />*/}
             <Route path='/Dashboard' component={Dashboard} />
+            <Route path='/DashboardF' component={DashboardF} />
             <Route path='/Counter' component={Counter} />
         <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
       </Layout>
