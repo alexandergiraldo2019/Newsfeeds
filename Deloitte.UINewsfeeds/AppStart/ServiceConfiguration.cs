@@ -45,6 +45,7 @@ namespace Deloitte.UINewsfeeds.AppStart
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddScoped<IFeedService, FeedService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<INewsFeedService, NewsFeedService>();
             services.AddScoped<IConnectionFactory>(x => new DbConnectionFactory("System.Data.SqlClient", Configuration.GetConnectionString("DataContext")));
             services.AddScoped<IUserRepository, UserRepository>();

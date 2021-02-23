@@ -23,7 +23,7 @@ namespace Deloitte.UINewsfeeds.Controllers
         private readonly IUserService _userService;
         private readonly IOptions<JWT> _config;
 
-        public LoginController( IUserService userService, IOptions<JWT> config)
+        public LoginController(IUserService userService, IOptions<JWT> config)
         {
             _userService = userService;
             _config = config;
@@ -46,17 +46,19 @@ namespace Deloitte.UINewsfeeds.Controllers
         }
         private string GenerarTokenJWT(User _user)
         {
-            // CREAMOS EL HEADER //
-            var _symmetricSecurityKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(_config.Value.ClaveSecreta)
-                );
-            var _signingCredentials = new SigningCredentials(
-                    _symmetricSecurityKey, SecurityAlgorithms.HmacSha256
-                );
-            var _Header = new JwtHeader(_signingCredentials);
+            try
+            {
+                // CREAMOS EL HEADER //
+                var _symmetricSecurityKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(_config.Value.ClaveSecreta)
+                    );
+                var _signingCredentials = new SigningCredentials(
+                        _symmetricSecurityKey, SecurityAlgorithms.HmacSha256
+                    );
+                var _Header = new JwtHeader(_signingCredentials);
 
-            // CREAMOS LOS CLAIMS //
-            var _Claims = new[] {
+                // CREAMOS LOS CLAIMS //
+                var _Claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.NameId, _user.UserID.ToString()),
                 new Claim("nombre", _user.UserName),
@@ -65,24 +67,29 @@ namespace Deloitte.UINewsfeeds.Controllers
                 //new Claim(ClaimTypes.Role, usuarioInfo.Rol)
             };
 
-            // CREAMOS EL PAYLOAD //
-            var _Payload = new JwtPayload(
-                    issuer: _config.Value.Issuer,
-                    audience: _config.Value.Audience,
-                    claims: _Claims,
-                    // definimos desde que fecha y hora es valido
-                    notBefore: DateTime.UtcNow,
-                    // Exipra a los 15 minutos
-                    expires: DateTime.UtcNow.AddMinutes(15)
-                );
+                // CREAMOS EL PAYLOAD //
+                var _Payload = new JwtPayload(
+                        issuer: _config.Value.Issuer,
+                        audience: _config.Value.Audience,
+                        claims: _Claims,
+                        // definimos desde que fecha y hora es valido
+                        notBefore: DateTime.UtcNow,
+                        // Exipra a los 15 minutos
+                        expires: DateTime.UtcNow.AddMinutes(15)
+                    );
 
-            // GENERAMOS EL TOKEN //
-            var _Token = new JwtSecurityToken(
-                    _Header,
-                    _Payload
-                );
+                // GENERAMOS EL TOKEN //
+                var _Token = new JwtSecurityToken(
+                        _Header,
+                        _Payload
+                    );
 
-            return new JwtSecurityTokenHandler().WriteToken(_Token);
+                return new JwtSecurityTokenHandler().WriteToken(_Token);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private string EcriptarString(string Cadena)
